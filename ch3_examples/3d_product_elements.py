@@ -1,3 +1,5 @@
+# Computations from subsection 3.3.2.
+
 from firedrake import *
 
 N = 10
@@ -26,3 +28,16 @@ Hdiv_h = HDiv(TensorProductElement(RT2, dP1i))
 Hdiv_v = HDiv(TensorProductElement(dP1t, P2i))
 Hdiv_element = Hdiv_h + Hdiv_v
 Hdiv = FunctionSpace(mesh, Hdiv_element)
+
+# visualize functions from these spaces using Paraview
+x, y, z = SpatialCoordinate(mesh)
+uH1 = Function(H1).interpolate(x*x + y*y + z*z)
+uH1.rename('uH1')
+uL2 = Function(L2).interpolate(x*x + y*y + z*z)
+uL2.rename('uL2')
+uHcurl = Function(Hcurl).project(as_vector([z*z,y*y,x*x]))
+uHcurl.rename('uHcurl')
+uHdiv = Function(Hdiv).project(as_vector([z*z,y*y,x*x]))
+uHdiv.rename('uHdiv')
+File("unitcube.pvd").write(uH1,uL2,uHcurl,uHdiv)
+

@@ -1,5 +1,6 @@
+# Computations from section 3.1, but with unstable CG1xDG0 elements.  Generate plot similar to Fig. 3.1 (left).
+
 from firedrake import *
-import matplotlib.pyplot as plt
 
 mesh = UnitSquareMesh(16, 16)
 
@@ -19,7 +20,12 @@ L = f*v*dx
 w = Function(W, name="Solution")
 
 solve(a == L, w, solver_parameters={'ksp_rtol': 1e-3})
-sigma_h, u_h = w.split()
 
-plot(u_h)
+# visualize
+import matplotlib.pyplot as plt
+sigma_h, u_h = w.split()
+pic = tripcolor(u_h, cmap='coolwarm')
+plt.axis('equal')
+plt.colorbar(pic)
 plt.show()
+

@@ -1,3 +1,5 @@
+# Computations from section 3.1.  Generate plot similar to Fig. 3.1 (right).
+
 from firedrake import *
 
 mesh = UnitSquareMesh(16, 16)
@@ -19,7 +21,11 @@ L = f*v*dx
 w = Function(W, name="Solution")
 solve(a == L, w)
 
-sigma_h, u_h = w.split()
-plot(u_h)
+# visualize
 import matplotlib.pyplot as plt
+sigma_h, u_h = w.split()
+pic = tripcolor(u_h, cmap='coolwarm')
+plt.axis('equal')
+plt.colorbar(pic)
 plt.show()
+

@@ -1,4 +1,7 @@
+# Computations from section 3.4.1, solving a lid-driven cavity Stokes problem.  Generate plot similar to Fig. 3.8.
+
 from firedrake import *
+
 mesh = UnitSquareMesh(64, 64)
 
 V = VectorFunctionSpace(mesh, "CG", 2)
@@ -44,7 +47,6 @@ solver_parameters = {
     }
 }
 
-
 class MassMatrix(AuxiliaryOperatorPC):
     _prefix = "mass_"
     def form(self, pc, test, trial):
@@ -60,7 +62,11 @@ solve(F == 0, w,
       appctx=appctx,
       solver_parameters=solver_parameters)
 
+# visualize
 u_h, p_h = w.split()
-plot(u_h)
 import matplotlib.pyplot as plt
+pic = quiver(u_h, cmap='coolwarm')
+plt.axis('equal')
+plt.colorbar(pic)
 plt.show()
+
