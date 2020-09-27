@@ -20,7 +20,7 @@ S = TensorProductElement(P2, dP1)
 Hcurl = FunctionSpace(mesh, HCurl(S))
 Hdiv = FunctionSpace(mesh, HDiv(S))
 
-# visualize functions from these spaces using Paraview
+# visualize functions from these spaces using ParaView
 x, y = SpatialCoordinate(mesh)
 uH1 = Function(H1).interpolate(x*x + y*y)
 uH1.rename('uH1')

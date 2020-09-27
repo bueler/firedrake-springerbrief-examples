@@ -29,7 +29,7 @@ Hdiv_v = HDiv(TensorProductElement(dP1t, P2i))
 Hdiv_element = Hdiv_h + Hdiv_v
 Hdiv = FunctionSpace(mesh, Hdiv_element)
 
-# visualize functions from these spaces using Paraview
+# visualize functions from these spaces using ParaView
 x, y, z = SpatialCoordinate(mesh)
 uH1 = Function(H1).interpolate(x*x + y*y + z*z)
 uH1.rename('uH1')

@@ -1,4 +1,4 @@
-# Computations from section 3.2.  Use Paraview to generate Fig. 3.2.
+# Computations from section 3.2.  Use ParaView to generate Fig. 3.2.
 
 from firedrake import *
 
@@ -7,7 +7,7 @@ base_mesh = CubedSphereMesh(radius=6400.e6, refinement_level=5,
 mesh = ExtrudedMesh(base_mesh, layers=20, layer_height=10,
                     extrusion_type="radial")
 
-# visualize a function from this space with Paraview
+# visualize a function from this space with ParaView
 V = FunctionSpace(mesh, "CG", 1)
 u = Function(V)
 File("cubedsphere.pvd").write(u)
