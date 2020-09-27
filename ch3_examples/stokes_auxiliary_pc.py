@@ -1,4 +1,4 @@
-# Computations from section 3.4.1, solving a lid-driven cavity Stokes problem.  Generate plot similar to Fig. 3.8.
+# Computations from section 3.4.1.  Generates Fig. 3.8.
 
 from firedrake import *
 

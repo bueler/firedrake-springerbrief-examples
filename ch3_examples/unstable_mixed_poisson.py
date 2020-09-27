@@ -1,4 +1,4 @@
-# Computations from section 3.1, but with unstable CG1xDG0 elements.  Generate plot similar to Fig. 3.1 (left).
+# Computations from section 3.1, but with unstable CG1xDG0 elements.  Generates Fig. 3.1 (left).
 
 from firedrake import *
 

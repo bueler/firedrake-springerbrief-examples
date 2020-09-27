@@ -1,4 +1,4 @@
-# Computations from section 3.2.  Use Paraview to generate something like Fig. 3.2.
+# Computations from section 3.2.  Use Paraview to generate Fig. 3.2.
 
 from firedrake import *
 

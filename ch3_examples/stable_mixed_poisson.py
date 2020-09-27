@@ -1,4 +1,4 @@
-# Computations from section 3.1.  Generate plot similar to Fig. 3.1 (right).
+# Computations from section 3.1.  Generates Fig. 3.1 (right).
 
 from firedrake import *
 
