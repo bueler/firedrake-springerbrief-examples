@@ -1,4 +1,7 @@
+# Computations from subsection 4.3.1.  Use ParaView to generate Figs. 4.5 and 4.6.
+
 from firedrake import *
+
 R0 = 6371220.0
 R = Constant(R0)             # Radius of the earth [m]
 H = Constant(5960.0)         # Mean depth [m]
@@ -126,6 +129,7 @@ outfile.write(u_out, h_out)
 File("results/W5/W5_b.pvd").write(b)
 
 # Start time-loop
+from firedrake.petsc import PETSc  # for better parallel printing
 t = 0.0
 dumpfreq = 10    # Dump output every 10 steps
 counter = 1
@@ -158,3 +162,5 @@ while t < tmax:
         h_out.assign(hn + b)
         outfile.write(u_out, h_out)
         counter -= dumpfreq
+        PETSc.Sys.Print("t=%f days" % (t/day))
+

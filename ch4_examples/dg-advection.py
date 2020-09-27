@@ -1,3 +1,5 @@
+# Computations from subsection 4.2.1.  Use ParaView to generate Fig. 4.4.
+
 from firedrake import *
 
 mesh = UnitSquareMesh(128, 128, quadrilateral=True)
@@ -39,7 +41,8 @@ slot_cyl = conditional(
 q = Function(V).interpolate(1.0 + bell + cone + slot_cyl)
 q_init = Function(V).assign(q)
 
-outfile = File("results/DGadv.pvd")
+outfile = File("results/DG/DGadv.pvd")
+q.rename("q")
 outfile.write(q)
 
 T = 2*pi
@@ -77,6 +80,7 @@ solv2 = LinearVariationalSolver(prb2, solver_parameters=params)
 prb3 = LinearVariationalProblem(a, L3, dq)
 solv3 = LinearVariationalSolver(prb3, solver_parameters=params)
 
+from firedrake.petsc import PETSc  # for better parallel printing
 t = 0.0
 step = 0
 while t < T - 0.5*dt:
@@ -94,8 +98,9 @@ while t < T - 0.5*dt:
 
     if step % 20 == 0:
         outfile.write(q)
-        print("t=", t)
+        PETSc.Sys.Print("t=%f" % t)
 
 L2_err = errornorm(q, q_init, norm_type="L2")
 L2_init = norm(q_init, norm_type="L2")
-print(L2_err/L2_init)
+PETSc.Sys.Print(L2_err/L2_init)
+

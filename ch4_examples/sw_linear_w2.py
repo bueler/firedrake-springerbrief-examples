@@ -1,3 +1,5 @@
+# Computations from subsection 4.1.1.  Generates Figs. 4.2 and 4.3.  Use ParaView to generate Fig. 4.1.
+
 from firedrake import *
 
 R0 = 6371220.0
@@ -68,7 +70,10 @@ t_array = []
 energy = 0.5*inner(un, un)*H*dx + 0.5*g*hn*hn*dx
 energy_0 = assemble(energy)
 energy_t = []
-while t < tmax:  # Start time loop
+
+# Start time loop
+from firedrake.petsc import PETSc  # for better parallel printing
+while t < tmax:
     t += Dt
     t_array.append(t)
     uh_solver.solve()  # Solve for updated fields
@@ -95,6 +100,7 @@ while t < tmax:  # Start time loop
         h_out.assign(hn)
         outfile.write(u_out, h_out)
         counter -= dumpfreq
+        PETSc.Sys.Print("t=%f days" % (t/day))
 
 
 # plotting
@@ -145,11 +151,11 @@ make_a_plot(t_array, Herrors,
             data_label="Depth errors",
             name="depth_errors.pdf")
 
-# Plot energy
-# t_array.insert(0, 0.0)
+# Plot energy differences
 make_a_plot(t_array, energy_t,
             xlabel="Time (days)", ylabel="Relative energy diff.",
             xlim=[0, 5],
             ylim=None,
             data_label="Relative energy diff.",
             name="energy.pdf")
+
